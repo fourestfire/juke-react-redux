@@ -6,7 +6,7 @@ export default function Album (props) {
   const album = props.selectedAlbum;
   const currentSong = props.currentSong;
   const isPlaying = props.isPlaying;
-  const toggleOne = props.toggleOne;
+  const toggle = props.toggle;
 
   return (
     <div className="album">
@@ -18,7 +18,7 @@ export default function Album (props) {
         songs={album.songs}
         currentSong={currentSong}
         isPlaying={isPlaying}
-        toggleOne={toggleOne}/>
+        toggleOne={toggle}/>
     </div>
   );
 

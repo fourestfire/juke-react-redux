@@ -1,13 +1,13 @@
 import {connect} from 'react-redux';
 import FilterInputContainer from './FilterInputContainer'
 
-function mapStateToProps(store, ownProps) {
+function mapStateToProps(store) {
   return {
     artists: store.artists
   }
 }
 
-function mapMethodsToProps(dispatch, ownProps) {
+function mapMethodsToProps() {
   return {
 
   }
