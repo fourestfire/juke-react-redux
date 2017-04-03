@@ -5,8 +5,9 @@ import Stations from '../components/Stations'
 function convertSongsToStation(songs) {
   const stationsObject = {};
   for (let songObj of songs) {
-    if (!Object.keys(stationsObject).includes(songObj.genre)) stationsObject[songObj.genre] = [songObj]
-    else stationsObject[songObj.genre].push(songObj)
+    let genre = songObj.genre
+    if (!Object.keys(stationsObject).includes(genre)) stationsObject[genre] = [songObj]
+    else stationsObject[genre].push(songObj)
   }
   return stationsObject;
 }
