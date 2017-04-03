@@ -12,15 +12,14 @@ function convertSongsToStation(songs) {
   return stationsObject;
 }
 
-//the state is the store
-const mapStoreToProps = function (store, ownProps) { //store is passed through Provider
+const mapStoreToProps = function (store) {
   return {
     stations: convertSongsToStation(store.songs)
   }
 }
 
-const mapDispatchToProps = function (dispatch, ownProps) {
-  return {} //no methods needed for the container (yet...)
+const mapDispatchToProps = function (dispatch) {
+  return {} //no methods needed for the container
 }
 
 const stationsContainerCreator = connect(mapStoreToProps, mapDispatchToProps)
