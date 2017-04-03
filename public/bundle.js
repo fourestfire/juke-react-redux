@@ -14721,97 +14721,32 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _reactRedux = __webpack_require__(51);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _LyricsFormContainer = __webpack_require__(346);
 
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _store = __webpack_require__(12);
-
-var _store2 = _interopRequireDefault(_store);
-
-var _Lyrics = __webpack_require__(178);
-
-var _Lyrics2 = _interopRequireDefault(_Lyrics);
+var _LyricsFormContainer2 = _interopRequireDefault(_LyricsFormContainer);
 
 var _lyrics = __webpack_require__(172);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var mapStateToProps = function mapStateToProps(store, ownProps) {
+  //store is passed through Provider
+  return {
+    text: store.lyrics.text
+  };
+};
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LyricsContainer = function (_Component) {
-  _inherits(LyricsContainer, _Component);
-
-  function LyricsContainer() {
-    _classCallCheck(this, LyricsContainer);
-
-    var _this = _possibleConstructorReturn(this, (LyricsContainer.__proto__ || Object.getPrototypeOf(LyricsContainer)).call(this));
-
-    _this.state = Object.assign({
-      artistQuery: '',
-      songQuery: ''
-    }, _store2.default.getState());
-
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleArtistInput = _this.handleArtistInput.bind(_this);
-    _this.handleSongInput = _this.handleSongInput.bind(_this);
-
-    return _this;
-  }
-
-  _createClass(LyricsContainer, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.unsubscribe = _store2.default.subscribe(function () {
-        _this2.setState(_store2.default.getState());
-      });
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    dispatchSearch: function dispatchSearch(artist, song) {
+      dispatch((0, _lyrics.searchLyrics)(artist, song));
     }
-  }, {
-    key: 'handleArtistInput',
-    value: function handleArtistInput(artist) {
-      this.setState({ artistQuery: artist });
-    }
-  }, {
-    key: 'handleSongInput',
-    value: function handleSongInput(song) {
-      this.setState({ songQuery: song });
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      if (this.state.artistQuery && this.state.songQuery) {
-        _store2.default.dispatch((0, _lyrics.searchLyrics)(this.state.artistQuery, this.state.songQuery));
-      }
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.unsubscribe();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(_Lyrics2.default, _extends({}, this.state, {
-        handleChange: this.handleChange,
-        setArtist: this.handleArtistInput,
-        setSong: this.handleSongInput,
-        handleSubmit: this.handleSubmit }));
-    }
-  }]);
+  };
+};
 
-  return LyricsContainer;
-}(_react.Component);
+var LyricsContainer = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_LyricsFormContainer2.default);
 
 exports.default = LyricsContainer;
 
@@ -16290,94 +16225,7 @@ var FilterInput = function FilterInput(props) {
 exports.default = FilterInput;
 
 /***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = Lyrics;
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Lyrics(props) {
-
-  var text = props.lyrics.text;
-  var artistQuery = props.artistQuery;
-  var songQuery = props.songQuery;
-  var handleSubmit = props.handleSubmit;
-
-  var artistChange = function artistChange(e) {
-    return props.setArtist(e.target.value);
-  };
-  var songChange = function songChange(e) {
-    return props.setSong(e.target.value);
-  };
-
-  return _react2.default.createElement(
-    'div',
-    { style: { marginTop: '20px' } },
-    _react2.default.createElement(
-      'form',
-      { onSubmit: handleSubmit },
-      _react2.default.createElement(
-        'div',
-        { className: 'form-group row' },
-        _react2.default.createElement(
-          'div',
-          { className: 'col-md-6 col-xs-12' },
-          _react2.default.createElement(
-            'label',
-            { className: 'col-xs-2 control-label' },
-            'Artist'
-          ),
-          _react2.default.createElement('input', {
-            className: 'form-control',
-            type: 'text',
-            value: artistQuery,
-            placeholder: 'Enter an artist name',
-            onChange: artistChange
-          })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-md-6 col-xs-12' },
-          _react2.default.createElement(
-            'label',
-            { className: 'col-xs-2 control-label' },
-            'Song'
-          ),
-          _react2.default.createElement('input', {
-            className: 'form-control',
-            type: 'text',
-            value: songQuery,
-            placeholder: 'Enter a song name',
-            onChange: songChange
-          })
-        )
-      ),
-      _react2.default.createElement(
-        'pre',
-        null,
-        text || 'Search above!'
-      ),
-      _react2.default.createElement(
-        'button',
-        { type: 'submit', className: 'btn btn-success' },
-        'Search for Lyrics'
-      )
-    )
-  );
-}
-
-/***/ }),
+/* 178 */,
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33941,6 +33789,180 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = LyricsForm;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function LyricsForm(props) {
+
+  var text = props.text;
+  console.log(props);
+  var artistQuery = props.artistQuery;
+  var songQuery = props.songQuery;
+  var handleSubmit = props.handleSubmit;
+
+  var artistChange = function artistChange(e) {
+    return props.setArtist(e.target.value);
+  };
+  var songChange = function songChange(e) {
+    return props.setSong(e.target.value);
+  };
+
+  return _react2.default.createElement(
+    'div',
+    { style: { marginTop: '20px' } },
+    _react2.default.createElement(
+      'form',
+      { onSubmit: handleSubmit },
+      _react2.default.createElement(
+        'div',
+        { className: 'form-group row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col-md-6 col-xs-12' },
+          _react2.default.createElement(
+            'label',
+            { className: 'col-xs-2 control-label' },
+            'Artist'
+          ),
+          _react2.default.createElement('input', {
+            className: 'form-control',
+            type: 'text',
+            value: artistQuery,
+            placeholder: 'Enter an artist name',
+            onChange: artistChange
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-md-6 col-xs-12' },
+          _react2.default.createElement(
+            'label',
+            { className: 'col-xs-2 control-label' },
+            'Song'
+          ),
+          _react2.default.createElement('input', {
+            className: 'form-control',
+            type: 'text',
+            value: songQuery,
+            placeholder: 'Enter a song name',
+            onChange: songChange
+          })
+        )
+      ),
+      _react2.default.createElement(
+        'pre',
+        null,
+        text || 'Search above!'
+      ),
+      _react2.default.createElement(
+        'button',
+        { type: 'submit', className: 'btn btn-success' },
+        'Search for Lyrics'
+      )
+    )
+  );
+}
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _LyricsForm = __webpack_require__(345);
+
+var _LyricsForm2 = _interopRequireDefault(_LyricsForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LyricsContainer = function (_Component) {
+  _inherits(LyricsContainer, _Component);
+
+  function LyricsContainer(props) {
+    _classCallCheck(this, LyricsContainer);
+
+    var _this = _possibleConstructorReturn(this, (LyricsContainer.__proto__ || Object.getPrototypeOf(LyricsContainer)).call(this, props));
+
+    _this.state = {
+      artistQuery: '',
+      songQuery: ''
+    };
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleArtistInput = _this.handleArtistInput.bind(_this);
+    _this.handleSongInput = _this.handleSongInput.bind(_this);
+    return _this;
+  }
+
+  _createClass(LyricsContainer, [{
+    key: 'handleArtistInput',
+    value: function handleArtistInput(artist) {
+      this.setState({ artistQuery: artist });
+    }
+  }, {
+    key: 'handleSongInput',
+    value: function handleSongInput(song) {
+      this.setState({ songQuery: song });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      if (this.state.artistQuery && this.state.songQuery) {
+        this.props.dispatchSearch(this.state.artistQuery, this.state.songQuery);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      console.log(this.state);
+      return _react2.default.createElement(_LyricsForm2.default, _extends({}, this.state, {
+        text: this.props.text,
+        setArtist: this.handleArtistInput,
+        setSong: this.handleSongInput,
+        handleSubmit: this.handleSubmit }));
+    }
+  }]);
+
+  return LyricsContainer;
+}(_react.Component);
+
+exports.default = LyricsContainer;
 
 /***/ })
 /******/ ]);
